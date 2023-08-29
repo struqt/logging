@@ -32,7 +32,7 @@ var (
 	LogConsoleThreshold        = int8(zerolog.TraceLevel)
 )
 
-func NewLogger(path string) logr.Logger {
+func NewLogger(path string) Logger {
 	setup()
 	console := NewThresholdConsole()
 	var logger *zerolog.Logger
