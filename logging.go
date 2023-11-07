@@ -2,17 +2,17 @@ package logging
 
 import (
 	"io"
+	"log/slog"
 	"os"
 	"sync"
 	"time"
 
 	"github.com/go-logr/logr"
+	"github.com/go-logr/logr/slogr"
 	"github.com/go-logr/zerologr"
 	"github.com/rs/zerolog"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
-
-type Logger = logr.Logger
 
 var setupOnce sync.Once
 
@@ -32,7 +32,13 @@ var (
 	LogConsoleThreshold        = int8(zerolog.TraceLevel)
 )
 
-func NewLogger(path string) Logger {
+func NewLogger(path string) *slog.Logger {
+	logger := NewLogr(path)
+	sLogger := slog.New(slogr.NewSlogHandler(logger))
+	return sLogger
+}
+
+func NewLogr(path string) logr.Logger {
 	setup()
 	console := NewThresholdConsole()
 	var logger *zerolog.Logger
