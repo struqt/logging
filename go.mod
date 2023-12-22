@@ -3,7 +3,7 @@ module github.com/struqt/logging
 go 1.21
 
 require (
-	github.com/go-logr/logr v1.3.0
+	github.com/go-logr/logr v1.4.1
 	github.com/go-logr/zerologr v1.2.3
 	github.com/rs/zerolog v1.31.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
