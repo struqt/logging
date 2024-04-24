@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/go-logr/logr"
-	"github.com/go-logr/logr/slogr"
 	"github.com/go-logr/zerologr"
 	"github.com/rs/zerolog"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -30,11 +29,12 @@ var (
 	LogRotateFiles      uint16 = 64
 	LogVerbosity               = 2
 	LogConsoleThreshold        = int8(zerolog.TraceLevel)
+	DefaultLogger              = NewLogger("")
 )
 
 func NewLogger(path string) *slog.Logger {
 	logger := NewLogr(path)
-	sLogger := slog.New(slogr.NewSlogHandler(logger))
+	sLogger := slog.New(logr.ToSlogHandler(logger))
 	return sLogger
 }
 
